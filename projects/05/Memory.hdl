@@ -1,0 +1,61 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/05/Memory.hdl
+/** 
+ * The Memory chip implements the complete address space of the Hack data memory,
+ * including RAM, memory mapped screen, and memory mapped keyboard.
+ * Outputs the value of the memory location specified by the address input.
+ * If (load == 1), sets the memory location specified by the address input
+ * to the value of the in input.
+ * Address space rules:
+ * Only the upper 16K + 8K + 1 words of the memory are used.
+ * Access to address 0 to 16383 (0x0000 to 0x3FFF) results in accessing the RAM;
+ * Access to address 16384 to 24575 (0x4000 to 0x5FFF) results in accessing the Screen memory map;
+ * Access to address 24576 (0x6000) results in accessing the Keyboard memory map.
+ */ 
+CHIP Memory {
+    IN in[16], load, address[15];
+    OUT out[16];
+
+    PARTS:
+    
+    /*
+    //Check if the first bit is set, this means address is >16k
+    And(a=address[14],b=true,out=loadDevices);
+    Not(in=loadDevices, out = notloadDevices);
+
+    //Check if second bit is set, this means address is > 8k
+    And(a=true,b=address[13], out=DontLoadScreen);
+    Not(in=DontLoadScreen,out=LoadScreen);
+
+    //Check if we want to load screen
+    And(a=loadDevices,b=LoadScreen, out=loadScreenFinal );
+
+    //Now merge with the load signal
+    
+    And(a=load, b=notloadDevices, out=loadRamLoad);
+    And(a=load, b=loadScreenFinal, out = loadScreenFinalFinal);
+    */
+    
+    //Another way to do this other than above is to use Dmultiplexers to drive the load signal
+    //This is the simpler approach and can be studied
+
+    DMux(in = load, sel=address[14], a=loadRam,b=loadDevices); 
+    DMux(in = loadDevices, sel=address[13], a=loadScreenFinalFinal); 
+    
+    //Note, this means we pass on to the screen if its the bottom half of memory and 13 in 0;
+
+    //Main chips
+
+    RAM16K(address=address[0..13], in=in, load=loadRam,out=Ram16Out);
+    Screen(address=address[0..12], in=in, load=loadScreenFinalFinal,out=screenOut);
+
+    Keyboard(out = kbout);   //Need to understand how this one address can be probed
+
+    Mux16(a=screenOut,b=kbout, sel=address[13], out=devicesOut);
+    Mux16(a=Ram16Out, b=devicesOut, sel=address[14], out=out);
+    
+    //All chips are outputting when an address is sent
+
+}

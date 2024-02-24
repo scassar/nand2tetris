@@ -1,0 +1,117 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/05/CPU.hdl
+/**
+ * The Hack Central Processing unit (CPU).
+ * Parses the binary code in the instruction input and executes it according to the
+ * Hack machine language specification. In the case of a C-instruction, computes the
+ * function specified by the instruction. If the instruction specifies to read a memory
+ * value, the inM input is expected to contain this value. If the instruction specifies
+ * to write a value to the memory, sets the outM output to this value, sets the addressM
+ * output to the target address, and asserts the writeM output (when writeM == 0, any
+ * value may appear in outM).
+ * If the reset input is 0, computes the address of the next instruction and sets the
+ * pc output to that value. If the reset input is 1, sets pc to 0.
+ * Note: The outM and writeM outputs are combinational: they are affected by the
+ * instruction's execution during the current cycle. The addressM and pc outputs are
+ * clocked: although they are affected by the instruction's execution, they commit to
+ * their new values only in the next cycle.
+ */
+
+ /*
+
+ CHIP ALU {
+    IN  
+        x[16], y[16],  // 16-bit inputs        
+        zx, // zero the x input?
+        nx, // negate the x input?
+        zy, // zero the y input?
+        ny, // negate the y input?
+        f,  // compute (out = x + y) or (out = x & y)?
+        no; // negate the out output?
+    OUT 
+        out[16], // 16-bit output
+        zr,      // if (out == 0) equals 1, else 0
+        ng;      // if (out < 0)  equals 1, else 0
+*/
+
+
+CHIP CPU {
+
+    IN  inM[16],         // M value input  (M = contents of RAM[A])
+        instruction[16], // Instruction for execution
+        reset;           // Signals whether to restart the current
+                         // program (reset==1) or continue executing
+                         // the current program (reset==0).
+
+    OUT outM[16],        // M value output
+        writeM,          // Write to M? 
+        addressM[15],    // Address in data memory (of M)
+        pc[15];          // Address of next instruction
+
+
+/*
+
+instruction[5], instruction[4], instruction[3] = Dest
+instruction[2], instruction[1], instruction[0] = JMP
+
+
+*/
+
+    PARTS:
+
+    //ALU
+    //These controls will work as expected. Want to investigate checking on this later for learning.
+    ALU(y=aluMUXout, x=dRegisterOut, zx=instruction[11], nx=instruction[10], zy=instruction[9],ny=instruction[8],f=instruction[7] ,no=instruction[6], out=aluOut, zr=zrOut, ng=ngOut);  //Last 2 bits used for jumps 
+
+    Mux16(a=aluOut, b=instruction, sel=aRegisterLoadBit, out=inA);
+    Not(in=instruction[15], out=aRegisterLoadBit);    //This is required because if the first bit is 0, then flip it to activate the load
+
+    Or(a=aRegisterLoadBit, b=loadAControlAlu, out=loadA);  
+    ARegister(in = inA, load = loadA, out = aRegisterOut);
+  
+
+    //ALU Mux
+    Mux16(a=aRegisterOut, b=inM, sel=instruction[12], out=aluMUXout);  //Use memory of instruction a bit is 3.
+
+    //DRegister
+
+    DRegister(in=aluOut, load=loadD, out=dRegisterOut); //Load only if we are supposed to
+
+    //PC 
+    PC(in=aRegisterOut,load=doJump,inc=nojump ,reset=reset , out[0..14]=pc);
+
+    //SERIES OF AND chips to decode into 8wayOR? 
+
+
+    //Decode when doing a computer instruction 
+    //IE, if the first bit of the address is not set, then always 0. Otherwise, checks if the value is contained
+
+    And(a=instruction[15], b=instruction[5], out=loadAControlAlu);
+    And(a=instruction[15], b=instruction[4], out=loadD);
+    And(a=instruction[15], b=instruction[3], out=writeM);
+    
+
+    //Need decode logic to dermine whether to load or increment? 
+
+    //JMP decode logic
+
+    Or(a=zrOut, b=ngOut, out=lte);   //JLE
+    Not(in = lte, out = gt);    //JGT
+
+    And(a=instruction[0], b=gt, out=jumpBecauseGT);    //If we have a bit saying that its 
+    And(a=instruction[1], b=zrOut, out=jumpBecauseEQ);
+    And(a=instruction[2], b=ngOut, out=jumpLessThan); 
+
+    Or(a=jumpBecauseEQ, b=jumpLessThan, out=jumpBecauseGTLT); //JGE
+    Or(a=jumpBecauseGT, b=jumpBecauseGTLT, out=jump);   //JMP
+    And(a=jump, b=instruction[15], out=doJump); //  Send the final jump flag out
+    Not(in=doJump, out=nojump);	
+
+
+    //address memory out should be 15 bits (First bit off)
+    And16(a=aluOut,b=true,out=outM);
+    And16(a=aRegisterOut,b=true, out[0..14]=addressM);
+
+}
