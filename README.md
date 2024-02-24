@@ -1,4 +1,4 @@
-# Nand2Tetris Part 1 solutions
+# Nand2Tetris: part 1 solutions
 
 Absolutely amazing course available at https://www.nand2tetris.org/. 
 
