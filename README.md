@@ -10,5 +10,7 @@ Looking forward to potentially completing part 2 in the future.
 [py-assember](https://github.com/scassar/nand2tetris/tree/master/projects/06/py-assembler)
 
 **Nand2Tetris CPU schematic**
+
+
 ![image](https://github.com/scassar/nand2tetris/assets/2356898/db3ec066-99c1-45b3-85fc-b404866fe7f7)
 
