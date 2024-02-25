@@ -7,4 +7,4 @@ Building the Hack computer by scratch using logic gates is a great experience fo
 Looking forward to potentially completing part 2 in the future.
 
 **Python Assember located here: **
-[py-assember](https://github.com/scassar/nand2tetris/tree/master/projects/6/py-assembler)
+[py-assember](https://github.com/scassar/nand2tetris/tree/master/projects/06/py-assembler)
