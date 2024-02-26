@@ -13,7 +13,7 @@ It was interesting to build and form the basis of a 16 full adder, 16 bit regist
 
 ## Project 4
 
-This project focused on the building of programs using the Hack assembly language. We were required to build 2 programs that focused on manipulating ram, the virtual screen and all using inputs from a virtual keyboard.
+This project focuses on the building of programs using the Hack assembly language. We were required to build 2 programs that focused on manipulating ram, the virtual screen and all using inputs from a virtual keyboard.
 
 ## Project 5
 
@@ -21,7 +21,7 @@ Time to put everything together. This unit was about combinining all knowledge g
 
 ## Project 6
 
-Enter software! We pulled everything together and were required to write our own assembler for the Hack computer. I decided to use Python for this part of the course as its a language I had some experience in.
+Enter more software! We pulled everything together and were required to write our own assembler for the Hack computer. I decided to use Python for this part of the course as its a language I had some experience in.
 
 **Python Assember located here: **
 [py-assember](https://github.com/scassar/nand2tetris/tree/master/projects/06/py-assembler)
