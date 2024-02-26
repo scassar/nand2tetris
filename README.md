@@ -4,7 +4,7 @@ Absolutely amazing course available at https://www.nand2tetris.org/.
 
 Building the Hack computer by scratch using logic gates is a great experience for those who enjoy learning about low level hardware.
 
-Looking forward to potentially completing part 2 in the future.
+Below is a brief description of the projects, and also you can find my solutions to course problems in this repository.
 
 ## Project 1 to 3
 
