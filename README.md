@@ -1,4 +1,4 @@
-# Build a Modern Computer from First Principles: From Nand to Tetris I
+# Build a Modern Computer from First Principles: From Nand to Tetris I & II
 
 Absolutely amazing course available at https://www.nand2tetris.org/. 
 
@@ -25,6 +25,13 @@ Enter more software! We pulled everything together and were required to write ou
 
 **Python Assember located here: **
 [py-assember](https://github.com/scassar/nand2tetris/tree/master/projects/06/py-assembler)
+
+## Project 7
+
+First part of 2 which is about creating our own stack based VM translater for the bytecode of the Jack language. Simple mapping converter into Hack assembly. This can be accessed at the below link.
+
+[py-vmtranslator](https://github.com/scassar/nand2tetris/tree/master/projects/07/py-vm)
+
 
 **Nand2Tetris CPU overall schematic**
 
