@@ -35,7 +35,7 @@ class CodeWriter:
             final_write.append("A=A-1")
 
             if command == "add": 
-                final_write.append("M=M+D")
+                final_write.append("M=D+M")
             elif command == "sub":
                 final_write.append("M=M-D")
             elif command == "and":
