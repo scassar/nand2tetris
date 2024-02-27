@@ -23,7 +23,6 @@ Time to put everything together. This unit was about combinining all knowledge g
 
 Enter more software! We pulled everything together and were required to write our own assembler for the Hack computer. I decided to use Python for this part of the course as its a language I had some experience in.
 
-**Python Assember located here: **
 [py-assember](https://github.com/scassar/nand2tetris/tree/master/projects/06/py-assembler)
 
 ## Project 7
