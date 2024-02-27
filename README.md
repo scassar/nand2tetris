@@ -39,4 +39,5 @@ This was a an exciting ride figuring out how to write the assembly code to do th
 
 ![image](https://github.com/scassar/nand2tetris/assets/2356898/db3ec066-99c1-45b3-85fc-b404866fe7f7)
 
-Still deciding if I want to pursue Nand2Tetris part 2, where we will focus on abstracting away from the assembly level - building our own VM translation layer and higher programming language called Jack. 
+**Nand2Tetris VM memory map**
+![image](https://github.com/scassar/nand2tetris/assets/2356898/1f04a508-8a7d-4da6-b78d-89dc9e9f4734)
