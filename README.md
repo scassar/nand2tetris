@@ -27,10 +27,13 @@ Enter more software! We pulled everything together and were required to write ou
 
 ## Project 7
 
-First part of 2 which is about creating our own stack based VM translater for the bytecode of the Jack language. Simple mapping converter into Hack assembly. This can be accessed at the below link.
+First part of 2 which is about creating our own stack based VM translater for the bytecode of the Jack language. Simple mapping converter into Hack assembly. This can be accessed at the below link. I have not linked project 7 here but you can see the full VM Translator located at the link for project 8.
 
-[py-vmtranslator](https://github.com/scassar/nand2tetris/tree/master/projects/07/py-vm)
+## Project 8 
 
+This was a an exciting ride figuring out how to write the assembly code to do the function, call and return commands. If anything is certain, this project highlights how simple (and complex) a stack based VM implementation can be. Further optimisations to follow as the code currently is very verbose (I thought easier to keep the instructions clear)
+
+[py-vmtranslator](https://github.com/scassar/nand2tetris/tree/master/projects/08/py-vm)
 
 **Nand2Tetris CPU overall schematic**
 
