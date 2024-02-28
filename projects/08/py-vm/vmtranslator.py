@@ -1,6 +1,6 @@
 #My implementation of the Nand2Tetris VM Translater in Python
 #Author: Shaun Cassar
-#Usage: python3 vmtranslator.py
+#Usage: python3 vmtranslator.py <directory/filename>
 #Output: Various .ASM files corresponding to input .VM files found in the directory
 
 import sys
@@ -8,7 +8,8 @@ import os
 from vmparser import * 
 from vmcodewriter import *
 
-
+#Usage: If directory is passed then output fill be <directory>.asm
+#       Filename can also be passed in and will compire a singluar vm file
 if __name__ == '__main__': 
     
     print("Running the VM translater")
@@ -17,7 +18,7 @@ if __name__ == '__main__':
     default_file = "final.asm"
     import_directory = ""
 
-    #Get input param
+    #Determine if a directory or file has been passed to the translator.
     if len(sys.argv) > 1: 
         extension = sys.argv[1].split(".")[1]
         if(extension) == 'vm':

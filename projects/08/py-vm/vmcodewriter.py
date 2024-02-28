@@ -5,6 +5,17 @@
 
 import os
 
+
+symbols = {"local": "@LCL",
+            "argument": "@ARG",
+            "this": "@THIS",
+            "that": "@THAT",
+            "temp": "@R5",
+            "pointer": "@R3"
+
+}
+
+
 class CodeWriter: 
 
     # Usage: 
@@ -37,7 +48,6 @@ class CodeWriter:
             final_write.append("M=-M")
         elif command == "not": 
             final_write.append("M=!M")
-       
        #Non - neg or not commands
         else:      
             final_write.append("D=M")
@@ -51,7 +61,9 @@ class CodeWriter:
                 final_write.append("M=D&M")
             elif command == "or":
                 final_write.append("M=D|M")  
-            else:  #handle the lt, gt and eq operators in here if it is not one of the other commands
+            #Handle the lt, gt and eq operators in here if it is not one of the other commands
+            #Leave code verbose as this will be clearer than function wrapping
+            else:  
 
                 if command == "eq": 
                     
@@ -65,6 +77,7 @@ class CodeWriter:
                     final_write.append("A=A-1")
                     final_write.append("A=A-1")
                     final_write.append("M=0")
+                    
                     final_write.append ("@END"+str(self.next_jump))
                     final_write.append("0;JMP")
                 
@@ -164,13 +177,15 @@ class CodeWriter:
                 final_write.append("D=M")
                 final_write.append("@SP")
                 final_write.append("A=M")
-                final_write.append("M=D")
-            elif arg1 == "local":
-                #Add position to LCL and push into the current location of SP
-                #Left duplicate code to increase visual clarity of each instruction. 
-                #Could simplify these blocks into if/else due to repeated code
+                final_write.append("M=D")            
+            #Add position to LCL and push into the current location of SP
+            #Left duplicate code to increase visual clarity of each instruction. 
+            #Could simplify these blocks into if/else due to repeated code
+            elif arg1 == "local" or arg1 == "argument" or arg1 == "this" or arg1 == "that":
                 
-                final_write.append("@LCL")
+                symbol = symbols.get(arg1)
+
+                final_write.append(symbol)
                 final_write.append("D=M")
                 final_write.append("@"+arg2)   
                 final_write.append("D=D+A")          
@@ -179,37 +194,11 @@ class CodeWriter:
                 final_write.append("@SP")
                 final_write.append("A=M")
                 final_write.append("M=D")
-            elif arg1 == "argument":
-                final_write.append("@ARG")
-                final_write.append("D=M")
-                final_write.append("@"+arg2)   
-                final_write.append("D=D+A")          
-                final_write.append("A=D")
-                final_write.append("D=M")
-                final_write.append("@SP")
-                final_write.append("A=M")
-                final_write.append("M=D")
-            elif arg1 == "this":
-                final_write.append("@THIS")
-                final_write.append("D=M")
-                final_write.append("@"+arg2)   
-                final_write.append("D=D+A")          
-                final_write.append("A=D")
-                final_write.append("D=M")
-                final_write.append("@SP")
-                final_write.append("A=M")
-                final_write.append("M=D")
-            elif arg1 == "that":
-                final_write.append("@THAT")
-                final_write.append("D=M")
-                final_write.append("@"+arg2)   
-                final_write.append("D=D+A")          
-                final_write.append("A=D")
-                final_write.append("D=M")
-                final_write.append("@SP")
-                final_write.append("A=M")
-                final_write.append("M=D")
-            elif arg1 == "temp":
+
+            elif arg1 == "temp" or arg1 == "pointer":
+
+                symbol = symbols.get(arg1)
+                
                 final_write.append("@"+arg2)
                 final_write.append("D=A")
                 final_write.append("@R5")
@@ -219,27 +208,14 @@ class CodeWriter:
                 final_write.append("@SP")
                 final_write.append("A=M")
                 final_write.append("M=D")
-            elif arg1 == "pointer":
-                final_write.append("@"+arg2)
-                final_write.append("D=A")
-                final_write.append("@R3")
-                #Add position to LCL and push into the current location of SP
-                final_write.append("A=A+D")
-                final_write.append("D=M")
-                final_write.append("@SP")
-                final_write.append("A=M")
-                final_write.append("M=D")
-            else: 
-                pass
             
                 #increment the stack pointer to the next location
             final_write.append("@SP")
             final_write.append("M=M+1")
-
-        else:  # Do pop commands (aka remove from stack) 
+        #pop
+        else:
             if arg1 == "constant": 
                 pass #not valid
-            #Bring the value of the static variable onto the stack
             elif arg1 == "static": 
                 final_write.append("@SP")
                 final_write.append("A=M-1")
@@ -250,13 +226,13 @@ class CodeWriter:
                 final_write.append("@SP")
                 final_write.append("M=M-1")
                 
-                #Add position to LCL and push into the current location of SP
-                #Left duplicate code to increase visual clarity of each instruction. 
-                #Could simplify these blocks into if/else due to repeated code
-            elif arg1 == "local":
+            #Add position to LCL,ARG,THIS,THAT and push into the current location of SP
+            elif arg1 == "local" or arg1 == "argument" or arg1 == "this" or arg1 == "that":
                 
+                symbol = symbols.get(arg1)
+
                 #pop off the stack into index location (index)
-                final_write.append("@LCL")
+                final_write.append(symbol)
                 final_write.append("D=M")
                 final_write.append("@"+arg2)   
                 final_write.append("D=D+A")  
@@ -277,63 +253,12 @@ class CodeWriter:
 
                 final_write.append("@SP")
                 final_write.append("M=M-1")       
+    
+            elif arg1 == "temp" or arg1 == "pointer":
 
-            elif arg1 == "argument":
-                final_write.append("@ARG")
-                final_write.append("D=M")
-                final_write.append("@"+arg2)   
-                final_write.append("D=D+A")  
-                final_write.append ("@R13")  
-                final_write.append ("M=D")
+                symbol = symbols.get(arg1)
 
-                final_write.append("@SP")
-                final_write.append("A=M-1")
-                final_write.append("D=M") 
-
-                final_write.append("@R13")
-                final_write.append("A=M")
-                final_write.append("M=D") 
-
-                final_write.append("@SP")
-                final_write.append("M=M-1")       
-            elif arg1 == "this":
-                final_write.append("@THIS")
-                final_write.append("D=M")
-                final_write.append("@"+arg2)   
-                final_write.append("D=D+A")  
-                final_write.append ("@R13")  
-                final_write.append ("M=D")
-
-                final_write.append("@SP")
-                final_write.append("A=M-1")
-                final_write.append("D=M") 
-
-                final_write.append("@R13")
-                final_write.append("A=M")
-                final_write.append("M=D")
-
-                final_write.append("@SP")
-                final_write.append("M=M-1")        
-            elif arg1 == "that":
-                final_write.append("@THAT")
-                final_write.append("D=M")
-                final_write.append("@"+arg2)   
-                final_write.append("D=D+A")  
-                final_write.append ("@R13")  
-                final_write.append ("M=D")
-
-                final_write.append("@SP")
-                final_write.append("A=M-1")
-                final_write.append("D=M") 
-
-                final_write.append("@R13")
-                final_write.append("A=M")
-                final_write.append("M=D")
-
-                final_write.append("@SP")
-                final_write.append("M=M-1")        
-            elif arg1 == "temp":
-                final_write.append("@R5")
+                final_write.append(symbol)
                 final_write.append("D=A")
                 final_write.append("@"+arg2)   
                 final_write.append("D=D+A")  
@@ -350,28 +275,8 @@ class CodeWriter:
                 final_write.append("M=D") 
 
                 final_write.append("@SP")
-                final_write.append("M=M-1")       
-            elif arg1 == "pointer":
-                final_write.append("@R3")
-                final_write.append("D=A")
-                final_write.append("@"+arg2)   
-                final_write.append("D=D+A")  
-                
-                final_write.append ("@R13")  
-                final_write.append ("M=D")
+                final_write.append("M=M-1")         
 
-                final_write.append("@SP")
-                final_write.append("A=M-1")
-                final_write.append("D=M") 
-
-                final_write.append("@R13")
-                final_write.append("A=M")
-                final_write.append("M=D")
-                
-                final_write.append("@SP")
-                final_write.append("M=M-1")              
-
-        
         for line in final_write: 
             self.file.write(line+"\n")   
 
@@ -435,6 +340,8 @@ class CodeWriter:
         self.call_number+=1
         return_address = functionName+"$ret."+str(self.call_number)
 
+        mem_addresses = ["@LCL","@ARG","@THIS","@THAT"]
+
         #Push the return address onto the stack
         final_write.append("@"+return_address)
         final_write.append("D=A")
@@ -446,46 +353,23 @@ class CodeWriter:
         final_write.append("@SP")
         final_write.append("M=M+1")
 
-        #push LCL,ARG,THIS,THAT
-        final_write.append("@LCL")
-        final_write.append("D=M")
+        #push LCL,ARG,THIS,THAT onto stack
 
-        final_write.append("@SP")
-        final_write.append("A=M")
-        final_write.append("M=D")
-        final_write.append("@SP")
-        final_write.append("M=M+1")
+        for key, address in enumerate(mem_addresses):
 
-        final_write.append("@ARG")
-        final_write.append("D=M")
+            final_write.append(address)
+            final_write.append("D=M")
 
-        final_write.append("@SP")
-        final_write.append("A=M")
-        final_write.append("M=D")
-        final_write.append("@SP")
-        final_write.append("M=M+1")
-
-        final_write.append("@THIS")
-        final_write.append("D=M")
-        final_write.append("@SP")
-        final_write.append("A=M")
-        final_write.append("M=D")
-        final_write.append("@SP")
-        final_write.append("M=M+1")
-
-        final_write.append("@THAT")
-        final_write.append("D=M")
-        final_write.append("@SP")
-        final_write.append("A=M")
-        final_write.append("M=D")
-        final_write.append("@SP")
-        final_write.append("M=M+1")
+            final_write.append("@SP")
+            final_write.append("A=M")
+            final_write.append("M=D")
+            final_write.append("@SP")
+            final_write.append("M=M+1")
 
         #now set the arg address back to where the first arg was. Calculate first the nargs, then add 5, then subtract 7 from the stack pointer
 
         final_write.append("@"+str(int(nArgs)+5))
         final_write.append("D=A")
-
         final_write.append("@SP")
         final_write.append("D=M-D")
 
@@ -496,10 +380,8 @@ class CodeWriter:
         #set LCL = SP
         final_write.append("@SP")
         final_write.append("D=M")
-
         final_write.append("@LCL")
         final_write.append("M=D")
-
         final_write.append("@"+functionName)
         final_write.append("0;JMP")
         final_write.append("(" + return_address + ")")
@@ -522,6 +404,9 @@ class CodeWriter:
         
         final_write = []
         final_write.append("//" + command)
+        
+        #Reverse order required as we pull back off the stack
+        mem_addresses = ["@THAT","@THIS","@ARG","@LCL"]
 
         final_write.append("@LCL")   #Temp we will use to hold LCL. #EndFrame = R13
         final_write.append("D=M")
@@ -551,37 +436,18 @@ class CodeWriter:
         final_write.append("M=D+1")   #Set SP to ARG address + 1
 
         #Now we need to set the THAT, THIS, ARG and LCL back to that of the caller. Will re-use the code to get the return address
-
-        final_write.append("@R14")   #get the restore value for THAT
-        final_write.append("AM=M-1")
-        final_write.append("D=M")     #grab the memory location saved
         
-        final_write.append("@THAT")
-        final_write.append("M=D")
+        for key, address in enumerate(mem_addresses): 
 
-        final_write.append("@R14")   #get the restore value for THIS
-        final_write.append("AM=M-1")
-        final_write.append("D=M")     #grab the memory location saved
-        final_write.append("@THIS")
-        final_write.append("M=D")
-
-        final_write.append("@R14")   #get the restore value for ARG
-        final_write.append("AM=M-1")
-        final_write.append("D=M")     #grab the memory location saved
-        final_write.append("@ARG")
-        final_write.append("M=D")
-
-        final_write.append("@R14")   #get the restore value for LCL
-        final_write.append("AM=M-1")
-        final_write.append("D=M")     #grab the memory location saved
-        final_write.append("@LCL")
-        final_write.append("M=D")
-
+            final_write.append("@R14")   #get the restore value for THAT
+            final_write.append("AM=M-1")
+            final_write.append("D=M")     #grab the memory location saved
+            final_write.append(address)
+            final_write.append("M=D")
 
         final_write.append("@R15")
-        final_write.append("A=M")   #dont forget - we jump to the line which is the value of the a register
+        final_write.append("A=M")
         final_write.append("0;JMP")
-
 
         for line in final_write: 
             self.file.write(line+"\n")   

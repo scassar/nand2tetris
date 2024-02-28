@@ -26,7 +26,6 @@ class VMParser:
 
         for line in all_lines: 
             clean_line = ""
-            delete = False
 
             if line[0] == '/':
                 continue
