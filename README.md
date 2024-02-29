@@ -35,6 +35,12 @@ This was a an exciting ride figuring out how to write the assembly code to do th
 
 [py-vmtranslator](https://github.com/scassar/nand2tetris/tree/master/projects/08/py-vm)
 
+## Project 9
+
+Wait what?! finally we are back to a high level programming language *clap*. Here we learnt about the Jack language for which we will build a compiler in projects 10 and 11. I decided to write a small implementation of my GBA game Escape the Godfather (ETG). Check it out below!
+
+[ETG](https://github.com/scassar/nand2tetris/tree/master/projects/09)
+
 **Nand2Tetris CPU overall schematic**
 
 ![image](https://github.com/scassar/nand2tetris/assets/2356898/db3ec066-99c1-45b3-85fc-b404866fe7f7)
