@@ -1,0 +1,179 @@
+// Program written to mimic my Gameboy Advance game
+// Escape the Godfather (ETG)
+// Author: Shaun Cassar
+
+/**
+ * ETGgame class of the ETG game.
+ */
+class ETGgame {
+
+    field Player player; 
+    field Enemy enemy; 
+    field int score;
+    static int screen_width; 
+    static int screen_height; 
+
+    constructor ETGgame newGame() {
+
+        let player = Player.new();
+        let enemy = Enemy.new(250);
+        let score = 0;
+        let screen_height = 256;
+        let screen_width = 512;
+
+        do drawRoad();
+        do player.draw();
+        do enemy.draw();
+        
+        //We must always return back from a function/method in Jack
+        return this;
+    }
+
+    method void dispose() {
+        do player.dispose();
+	    do enemy.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void displayScore() {
+        do Output.moveCursor(1,1);
+        do Output.printString("Score: ");
+        do Output.printInt(score);
+        return;
+    }
+
+
+    function void displayStart() { 
+        do Output.moveCursor(10,15);
+        do Output.printString("Escape the Godfather - Jack Edition");
+        do Output.moveCursor(12,25);
+        do Output.printString("Press key to start");
+        return;
+    }
+
+    // Draw the lanes and road
+    method void drawRoad() { 
+
+        var int left_x, right_x;
+        var int center_line_x;
+        var int loop_count; 
+
+        let loop_count = 0;
+
+        let center_line_x = screen_width/2;
+        let left_x = screen_width/4;
+        let right_x = (screen_width/4)*3;
+
+        do Screen.drawLine(left_x, 0, left_x, 255);
+        do Screen.drawLine(right_x, 0, right_x, 255);
+
+       while(loop_count < 8) { 
+
+            do Screen.drawLine(center_line_x, (loop_count*30)+20, center_line_x, (loop_count*30)+30);
+            let loop_count = loop_count + 1;
+        }
+
+        return;
+    }
+
+    //Lets run the game loop
+    method void run() { 
+        var boolean exit; 
+        var char key; 
+        var boolean crashed; 
+        var int height;
+        var boolean colide; 
+        var int newXLocation;  
+
+        let exit = false;
+        let key = 0;
+        let crashed = false;
+        let colide = false;
+        
+        do ETGgame.displayStart();
+        
+        // Pause at menu for keypress 
+        while ((key = 0) & (~exit)) {
+                let key = Keyboard.keyPressed();
+            }
+
+        let key = 0;
+        do Screen.clearScreen();
+
+        // Enter game loop
+        while(~exit) { 
+                      
+            if ((key = 0) & (~exit)) {
+                let key = Keyboard.keyPressed();
+            }
+        
+        // sprite updates
+
+        do player.update(key);
+        do enemy.update();
+
+        //Check for crash at the bottom of the screen
+
+        let crashed = enemy.getCrashed();
+
+        if (crashed) { 
+           do enemy.dispose();
+           let enemy = Enemy.new(player.getX());
+           let score = score+1;
+
+        }
+
+        // Draw phase
+        do displayScore();
+        do player.draw();
+        do enemy.draw();
+        do drawRoad();
+
+        // End condition checks
+
+        let colide = ETGgame.IsCollision(player, enemy);
+
+        if (colide) { 
+            let exit = true;
+        }
+
+        if (exit) {
+            do Output.moveCursor(10,27);
+	        do Output.printString("Game Over");
+            do Sys.wait(5000);
+	    }
+
+        do Sys.wait(50);
+        let key = 0;
+
+        }
+
+        return;
+    }
+
+
+    //Takes 2 objects and checks if collission
+    function boolean IsCollision(Player player, Enemy enemy) {
+        
+        var boolean colide; 
+        
+        let colide = ETGgame.collision(player.getX(), player.getY(), player.getWidth(), player.getHeight(), enemy.getX(), enemy.getY(), enemy.getWidth(), enemy.getHeight());
+
+        return colide;
+    }
+
+
+    function boolean collision(int x1, int y1, int width1, int height1,
+    int x2, int y2, int width2, int height2) {
+        
+        if (((x1 + width1) > x2) & (x1 < (x2 + width2)) &
+            ((y1 + height1) > y2) & (y1 < (y2 + height2)))
+                { 
+                return true;  
+            }
+
+        return false;
+    }
+
+}

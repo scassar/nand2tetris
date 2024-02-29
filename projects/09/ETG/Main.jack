@@ -1,0 +1,17 @@
+// Sample Jack program written to mimic my Gameboy Advance game
+// Escape the Godfather (ETG)
+// Author: Shaun Cassar
+
+/**
+ * Main class of the ETG game.
+ */
+class Main {
+    function void main() {
+        var ETGgame game;   //Create an instance of the game object. Basically the pointer to an object 
+        let game = ETGgame.newGame();
+        //Run the game
+        do game.run();
+        do game.dispose();
+        return;
+    }
+}

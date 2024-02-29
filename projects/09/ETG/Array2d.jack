@@ -1,0 +1,61 @@
+// Program written to mimic my Gameboy Advance game
+// Escape the Godfather (ETG)
+// Author: Shaun Cassar
+
+/**
+ * Extend my own class for 2d array
+ */
+class Array2d {
+
+    field int numRows;
+    field int numColumns;
+    field Array rows;
+    field int i;
+
+    constructor Array2d new(int rowCount, int colCount) {
+
+        let numRows = rowCount;
+        let numColumns = colCount; 
+        let rows = Array.new(rowCount);
+
+        // Initialize each row
+        let i = 0;
+        
+        while (i < rowCount) {
+            let rows[i] = Array.new(colCount);
+            let i = i + 1;
+        }
+
+        return this;
+    }
+
+    //Set the value of a row / column
+    method void set(int row, int col, int value) { 
+        var Array ygrid; 
+        let ygrid = rows[row];
+        let ygrid[col] = value;
+        return;
+    }
+    // retrieve the value of a row / column 
+    
+    method int get(int row, int col) { 
+        var Array ygrid; 
+        let ygrid = rows[row];
+        return ygrid[col];
+    }
+
+    /** Deallocates the object's memory. */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method int getNumRows() { 
+        return numRows;
+    }
+
+    method int numColumns() { 
+        return numColumns;
+    }
+
+}
