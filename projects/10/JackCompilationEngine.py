@@ -129,10 +129,12 @@ class JackCompilationEngine:
                 
                 if self.tk.current_token == "var": 
                     self.compile_var_dec()
-                elif self.tk.current_token == "}": 
-                    self.write_buffer(write_xml("symbol", self.tk.current_token))
                 else: 
                     self.compile_statements()
+
+            
+            self.handle_error_symbol("subroutine", "}", "expected symbol at the end of statements")
+            self.write_buffer(write_xml("symbol", self.tk.current_token))    
             
             self.write_buffer(write_xml_header("subroutineBody", ""))
             self.write_buffer(write_xml_header("subroutineDec", ""))
@@ -345,12 +347,11 @@ class JackCompilationEngine:
         if not (self.tk.current_token == ";"): 
 
             self.compile_expression()
-
-
             self.write_buffer(write_xml("symbol", self.tk.current_token))
         else:    
             self.write_buffer(write_xml("symbol", self.tk.current_token))
        
+        self.tk.advance()
         self.write_buffer(write_xml_header("returnStatement", ""))
     
     def compile_if(self): 
@@ -376,8 +377,9 @@ class JackCompilationEngine:
         self.tk.advance()
 
         self.compile_statements()
-        
+
         self.handle_error_symbol("if", "}"," terminator expected for if expression")
+
         self.write_buffer(write_xml("symbol", self.tk.current_token))  
         self.tk.advance()
   
@@ -461,6 +463,7 @@ class JackCompilationEngine:
             
             if look_ahead == "(": 
                 self.tk.advance()
+                self.tk.advance()
                 self.compile_expression_list()
             
             elif look_ahead == "[": 
@@ -498,7 +501,6 @@ class JackCompilationEngine:
         
         found_next = True
         total_args = 0
-
         if self.tk.current_token == ")": 
             self.write_buffer(write_xml_header("expressionList", ""))
             return 0
