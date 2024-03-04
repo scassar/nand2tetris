@@ -41,6 +41,10 @@ Wait what?! finally we are back to a high level programming language *clap*. Her
 
 [ETG](https://github.com/scassar/nand2tetris/tree/master/projects/09)
 
+## Project 10
+
+Okay things are getting really tough now. Project 10 has us build 50% of the compiler through starting with the lexical and syntax analyser. This is tough because you need to parse all the tokens in the original Jack file, and produce an XML file mapping all elements for testing. This is highly recursive (I am never going to under estimate this again), but overall was a really intense challenge. Looking forward to completing the generator component.
+
 **Nand2Tetris CPU overall schematic**
 
 ![image](https://github.com/scassar/nand2tetris/assets/2356898/db3ec066-99c1-45b3-85fc-b404866fe7f7)
