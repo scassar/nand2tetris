@@ -125,7 +125,7 @@ class JackTokenizer:
             while(True): 
                 character = read_file.read(1)
 
-                if self.is_symbol(character):
+                if self.is_symbol(character) and not processing_string:
                     if len(temp_buffer) > 0:
                         self.list_tokens.append(temp_buffer)  
                         temp_buffer = "" 
@@ -138,6 +138,7 @@ class JackTokenizer:
                     #All characters until we hit another " should be stored"
                     processing_string = not processing_string
 
+                    #This will now save the temp buffer
                     if not processing_string: 
                         self.list_tokens.append('"'+temp_buffer+'"') 
                         temp_buffer = "" 
