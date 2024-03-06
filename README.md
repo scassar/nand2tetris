@@ -47,6 +47,19 @@ Okay things are getting really tough now. Project 10 has us build 50% of the com
 
 [Jack-Analyzer](https://github.com/scassar/nand2tetris/tree/master/projects/10)
 
+## Project 11 
+
+Finished! Now I would prefer never to do that again (jokes!). Absolutely sensational feeling to complete the entire compiler. I was able to get each of the programs supplied by the course running, and even used it to compile my own Escape the Godfather game from project 9. This challenge required learning about the role of symbol tables in compilers, and dealing with the nature of the VM generation being recursive. Highly recommend everyone doing this course to attempt and complete this project. You can find my Jack Compiler solution below: 
+
+[Jack-Compiler](https://github.com/scassar/nand2tetris/tree/master/projects/11)
+
+## Nand2Tetris artefacts  
+
+**Overall**
+
+![image](https://github.com/scassar/nand2tetris/assets/2356898/ff7392c2-dc8d-4969-92b1-d666ed5a8e55)
+
+
 **Nand2Tetris CPU overall schematic**
 
 ![image](https://github.com/scassar/nand2tetris/assets/2356898/db3ec066-99c1-45b3-85fc-b404866fe7f7)
