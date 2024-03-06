@@ -55,7 +55,7 @@ Finished! Now I would prefer never to do that again (jokes!). Absolutely sensati
 
 ## Nand2Tetris artefacts  
 
-**Overall**
+### Overall
 
 ![image](https://github.com/scassar/nand2tetris/assets/2356898/ff7392c2-dc8d-4969-92b1-d666ed5a8e55)
 
