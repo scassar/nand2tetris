@@ -1,6 +1,8 @@
 # Build a Modern Computer from First Principles: From Nand to Tetris I & II
 
-Absolutely amazing course available at https://www.nand2tetris.org/. I must say that this course constructed by both Shimon Schocken and Noam Nisan is nothing short of phenominal. Cant recommend this enough to people who just want to understand how all the magic "Black box abstractions" of the modern computer work!
+Absolutely amazing course available at https://www.nand2tetris.org/. 
+
+I must say that this course constructed by both Shimon Schocken and Noam Nisan is nothing short of phenominal. Cant recommend this enough to people who just want to understand how all the magic "Black box abstractions" of the modern computer work!
 
 We are tasked with building the "Hack" computer from scratch, starting with building the actual computer out of basic logic chips. Following this we move on to building our own assembler, VM translator and even a compiler for the high level java-like Jack language. 
 
