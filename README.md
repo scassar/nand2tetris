@@ -59,8 +59,7 @@ Finished! Now I would prefer never to do that again (jokes!). Absolutely sensati
 
 ### Overall
 
-![image](https://github.com/scassar/nand2tetris/assets/2356898/ff7392c2-dc8d-4969-92b1-d666ed5a8e55)
-
+![image](https://github.com/scassar/nand2tetris/assets/2356898/5172cb52-d531-40a1-9457-b8f30163cb28)
 
 **Nand2Tetris CPU overall schematic**
 
