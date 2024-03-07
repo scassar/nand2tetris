@@ -1,0 +1,159 @@
+class Math {
+    static int n;             
+    static Array powersOfTwo; 
+    
+    function void init() {
+        var int counter; 
+        var int sum;
+        let powersOfTwo = Array.new(16);
+        let powersOfTwo[0] = 1;
+        let counter = 1; 
+        let sum = 1;
+        let n = 16;
+       
+        while(counter < 16) { 
+            let sum = sum + sum;
+            let powersOfTwo[counter] = sum;
+            let counter = counter + 1;
+        }
+        return;
+    }
+    
+    function boolean bit(int x, int i) { 
+        
+        var boolean check;
+        var int counter;
+        var int loops; 
+        let check = false; 
+        let counter = 0;
+        let loops = n - 1;
+        while (counter < loops) {
+        
+         if (powersOfTwo[loops-counter] < x) { 
+           let x = x - powersOfTwo[loops-counter];
+            if (x = powersOfTwo[i]) { 
+                let check = true;
+            }
+        }
+        let counter = counter + 1;
+      }
+        return check;
+    }
+    
+    function int multiply(int x, int y) {
+        var int sum; 
+        var int shiftedX; 
+        var int i; 
+        
+        let i = 0;
+        let sum = 0;
+        let shiftedX = x;
+        
+        if (x < 0) {
+        return -Math.multiply(-x, y);
+        }
+        if (y < 0) {
+        return -Math.multiply(x, -y);
+        }
+        while (i < n) { 
+            if (powersOfTwo[i] & y) { 
+                let sum = sum + shiftedX;
+            }
+           
+            let shiftedX = shiftedX + shiftedX;
+            let i = i + 1;
+        }
+        return sum;
+    }
+   
+    function int divide(int x, int y) {
+        
+        var int q; 
+        if (y = 0) { 
+            do Sys.error(1); 
+            }
+        
+        if (x < 0) { 
+            return -Math.divide(-x,y);
+        } 
+        if (y < 0) { 
+            return -Math.divide(x,-y);
+        }
+        if (y > x) { 
+            return 0;
+        }
+        
+        let q = Math.divide(x, y+y); 
+        
+        if ((x - (2 * q * y)) < y) {
+            return q + q;
+        } 
+        else {
+            return q + q + 1;
+        }
+    }
+    
+    
+    
+    function int sqr(int x, int y) {
+        var int i; 
+        var int sum; 
+        var int loops;
+        let loops = y-1;
+        let i = 0;
+        let sum = x;
+       
+        if (loops = -1) { 
+            return 1;
+        }
+        if (loops = 0) { 
+            return sum;
+        }
+        while (i < loops) { 
+            let sum = sum * x;
+            let i = i + 1;
+        }
+        
+        return sum;
+    }
+    
+    function int sqrt(int x) {
+        
+        var int y; 
+        var int j; 
+        let y = 0;
+        let j = (n / 2) - 1; 
+        
+        if (x = 32767) { 
+            return 181;
+        }
+        while (j > -1) { 
+            if ( ((y + Math.sqr(2,j)) * (y + Math.sqr(2,j))) < (x+1)) { 
+                let y = y + Math.sqr(2,j);
+            }
+            let j = j - 1;
+        }
+        return y;
+    }
+   
+    function int max(int a, int b) {
+        if (a > b) { 
+            return a;
+        }
+        return b;
+    }
+    function int min(int a, int b) {
+        if (a < b) { 
+            return a;
+        }
+        return b;
+    }
+    
+    function int abs(int x) {
+        
+        if (x < 0) { 
+            return -x;
+        }
+        return x;
+    }
+}
