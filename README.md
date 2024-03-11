@@ -55,6 +55,14 @@ Finished! Now I would prefer never to do that again (jokes!). Absolutely sensati
 
 [Jack-Compiler](https://github.com/scassar/nand2tetris/tree/master/projects/11)
 
+## Project 12
+
+Well folks, thats a wrap! This module required us to implement many of the functions we had taken for granted throughout this course. Many modules such as Sys, Math, Memory and Array etc are required in order to build properly functioning Jack programs. This was actually a very challenging part of the course for me, as its been many years since I whipped out an old notepad to do some math. 
+
+## Summary
+
+I am a little sad that the course is over, as it was brilliant from start to finish. Fortunately, given this domain there is always more enhancements that can be made! I will give this project a break for now as I am next looking to focus on FPGA tech and other 6502 projects. Still - This was one of the best courses I have ever completed!
+
 ## Nand2Tetris artefacts  
 
 ### Overall
