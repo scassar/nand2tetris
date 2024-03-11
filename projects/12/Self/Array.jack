@@ -1,0 +1,11 @@
+class Array {
+    function Array new(int size) {
+        var int arrPtr; 
+        let arrPtr = Memory.alloc(size);
+        return arrPtr;
+    }
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}

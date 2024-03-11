@@ -1,0 +1,87 @@
+class String {
+    field Array string_arr; 
+    field int end;
+    
+    constructor String new(int maxLength) {
+        let string_arr = Array.new(maxLength+2);
+        let end = 0;
+        return this; 
+    }
+    method void dispose() {
+        do string_arr.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+    method int length() {
+        return end; 
+    }
+    method char charAt(int j) {
+        return string_arr[j]; 
+    }
+    method void setCharAt(int j, char c) {
+        let string_arr[j] = c;
+        return;
+    }
+    method String appendChar(char c) {
+        let string_arr[end] = c;
+        let end = end + 1;
+        return this;
+    }
+    method void eraseLastChar() {
+        let end=end-1;
+        let string_arr[end] = 0; 
+        
+        return;
+    }
+    method int intValue() {
+   
+    var boolean negative;
+    var int number, i, digit;
+    let number = 0;
+    let i = 0;
+    while (i < end) {
+      let digit = string_arr[i] - 48;
+      if (string_arr[i] = 45) { 
+        let negative = true;
+      } else {
+        let number = (number * 10) + digit;
+      }
+      let i = i + 1;
+    }
+    if (negative) {
+      return -number;
+    }
+    return number;
+  }
+    method void setInt(int val) {
+    var int first_digit, exp;
+    let end = 0;
+    
+    if (val < 0) {
+      let val = -val;
+      do appendChar(45);
+    }
+    
+    while (val > 0) {
+        
+      let exp = 1;
+      let first_digit = val;
+      while (first_digit > 9) {
+        let first_digit = first_digit / 10;
+        let exp = exp * 10;
+      }
+      let val = val - (exp * first_digit);
+      do appendChar(first_digit + 48);
+    }
+    return;
+    }
+    function char newLine() {
+        return 128;
+    }
+    function char backSpace() {
+        return 129;
+    }
+    function char doubleQuote() {
+        return 34;
+    }
+}

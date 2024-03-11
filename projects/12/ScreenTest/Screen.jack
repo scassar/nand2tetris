@@ -1,7 +1,6 @@
 class Screen {
     static Array bit_masks;
     static boolean colour;
-
     function void init() {
    
     let bit_masks = Array.new(16);
@@ -22,7 +21,6 @@ class Screen {
     let bit_masks[14] = 16384;
     let bit_masks[15] = 16384 + 16384;
     let colour = true;
-
     return;
     }
     function void clearScreen() {
@@ -39,30 +37,24 @@ class Screen {
         var int value; 
         var int bit; 
         var int row, col; 
-
         let address = 16384  + (32 * y) + (x / 16);  
         
         let bit = x - ((x / 16) * 16);
         let value = Memory.peek(address);
-
         if (colour) { 
             let value = value | bit_masks[bit]; 
         }
         else {
             let value = value & ~bit_masks[bit];
         }
-
         do Memory.poke(address, value);
         return;
     }
-
-
     function void drawLine(int x1, int y1, int x2, int y2) {
     var int a, b, diff; 
     var int dx, dy;
     var int temp; 
     var int b_dir; 
-
     let a = 0; 
     let b = 0; 
     let diff = 0;
@@ -71,11 +63,9 @@ class Screen {
         let temp = x1; 
         let x1 = x2; 
         let x2 = temp; 
-
         let temp = y1; 
         let y1 = y2; 
         let y2 = temp;
-
     }
     
     let dx = x2-x1; 
@@ -89,21 +79,17 @@ class Screen {
     }
     
      if (dy = 0) {
-
       while (~(a = dx)) {
         let a = a + 1;
         do Screen.drawPixel(x1 + a, y1);
       }
-
       return;
     }
-
     if (dx = 0) {
       while (~(b = dy)) {
         let b = b + b_dir;
         do Screen.drawPixel(x1, y1 + b);
       }
-
       return;
     }
     
@@ -120,70 +106,49 @@ class Screen {
         }
         
         do Screen.drawPixel(x1+a, y1+b); 
-
     }
-
     while ((a < dx) & (b > dy)) {
         
       let diff = (a*dy) - (b*dx);
-
       if (diff > 0) {
         let a = a + 1;
       } else {
         let b = b - 1;
       }
-
       do Screen.drawPixel(x1 + a, y1 + b);
      
      }
-
         return;
     }
-
     function void drawRectangle(int x1, int y1, int x2, int y2) {
      var int temp, dx, dy, a, b;
-
     let a = 0;
     let b = 0;
-
     let dx = x2 - x1;
     let dy = y2 - y1;
-
     while (b < dy) {
       while (a < dx) {
         do Screen.drawPixel(x1 + a, y1 + b);
-
         let a = a + 1;
       }
-
       let a = 0;
       let b = b + 1;
     }
-
     return;
-
     }
    
    
-  /** Draws a filled circle of radius r around (cx, cy). */
   function void drawCircle(int cx, int cy, int r) {
     var int dy, sqrt, x1, x2, y;
-
     let dy = -r;
-
     while (~(dy = r)) {
       let sqrt = Math.sqrt((r * r) - (dy * dy));
-
       let x1 = cx - sqrt;
       let x2 = cx + sqrt;
-
       let y = cy + dy;
-
       do Screen.drawLine(x1, y, x2, y);
-
       let dy = dy + 1;
     }
-
     return;
   }
 }

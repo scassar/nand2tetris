@@ -1,0 +1,65 @@
+class Memory {
+    static Array memory; 
+    static int heap; 
+    static int freeList;
+    function void init() {
+        
+        let memory = 0;
+        let heap = 2048; 
+        let freeList = heap; 
+        let heap[0] = 0; 
+        let heap[1] = 14334; 
+        return;
+    }
+    function int peek(int address) {
+        return memory[address];
+    }
+    function void poke(int address, int value) {
+        let memory[address] = value;
+        return;
+        
+    }
+    
+    function int alloc(int size) {
+        
+        var int currentNodeSize; 
+        var int currentNodeAddr;
+        var int previousNodeAddr;
+        var int previousNodeSize;  
+        
+        let currentNodeAddr = freeList;
+        let currentNodeSize = memory[currentNodeAddr+1];
+        let previousNodeAddr = freeList + 0;
+       
+        while(currentNodeSize < size+2) { 
+                let previousNodeAddr = currentNodeAddr;
+                let previousNodeSize = currentNodeSize; 
+                let currentNodeAddr = memory[currentNodeAddr];
+                let currentNodeSize = memory[currentNodeAddr+1];
+                
+                if (currentNodeAddr = 0) { 
+                    do Sys.error(1);
+                }
+            }
+            if (previousNodeAddr = freeList) { 
+                let memory[previousNodeAddr+1] = size;
+                let memory[previousNodeAddr] = previousNodeAddr + size + 2;
+                let freeList = previousNodeAddr + size + 2;
+                let memory[freeList+1] = previousNodeSize - size;
+                return previousNodeAddr + 2;
+            } else { 
+                let memory[previousNodeAddr] = currentNodeAddr;
+                let freeList = currentNodeAddr;
+                return currentNodeAddr + 2;
+            }   
+    }
+   
+    function void deAlloc(Array o) {
+        
+        var int currentNodeAddr; 
+        let currentNodeAddr = o - 2;
+        let memory[currentNodeAddr] = freeList; 
+        let freeList = currentNodeAddr;
+        return;
+    }    
+}

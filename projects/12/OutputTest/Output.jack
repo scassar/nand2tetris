@@ -8,7 +8,6 @@ class Output {
         let cursorRow = 0; 
         let cursorCol = 0;
         return;
-
     }
     
     function void initMap() {
@@ -163,9 +162,7 @@ class Output {
         
         let row_index = 11 * cursorRow;
         let col_index = 8 * cursorCol; 
-
         let character = Output.getMap(c); 
-
         let i = 0; 
        
         while (i < 11) { 
@@ -184,10 +181,8 @@ class Output {
             let i = i + 1;
             
         }
-
         if (cursorCol = 63) {
         let cursorCol = 0;
-
         if (cursorRow = 22) {
             let cursorRow = 0;
         } else {
@@ -196,7 +191,6 @@ class Output {
         } else {
         let cursorCol = cursorCol + 1;
         }
-
         return;
     }
     function void printString(String s) {
@@ -216,13 +210,10 @@ class Output {
         do s.dispose();
         return;
         
-
     }
     
-
     function void println() {
         let cursorCol = 0;
-
         if (cursorRow = 22) {
       let cursorRow = 0;
     } else {
