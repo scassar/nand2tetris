@@ -529,7 +529,10 @@ class JackCompilationEngine:
                 n_args = 0
                 if variable_type is not None: #variable is a class
                     n_args+=1
-                    self.writer.write_push('this', variable_index)
+                    if variable_kind != 'field': 
+                        self.writer.write_push(variable_kind, variable_index)
+                    else: 
+                        self.writer.write_push('this', variable_index)
                     variable_start_name = variable_type
 
                 self.tk.advance()
