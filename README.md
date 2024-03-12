@@ -47,7 +47,7 @@ Wait what?! finally we are back to a high level programming language *clap*. Her
 
 ## Project 10
 
-Okay things are getting really tough now. Project 10 has us build 50% of the compiler through starting with the lexical and syntax analyser. This is tough because you need to parse all the tokens in the original Jack file, and produce an XML file mapping all elements for testing. This is highly recursive (I am never going to under estimate this again), but overall was a really intense challenge. Looking forward to completing the generator component. You can checkout part 10 below: (ps. please no judgement for the level of error checking I bothered to implement for now haha).
+Okay things are getting really tough now. Project 10 has us build 50% of the compiler through starting with the lexical and syntax analyser. This is tough because you need to parse all the tokens in the original Jack file, and produce an XML file mapping all elements for testing. This is highly recursive (I am never going to under estimate this again), but overall was a really intense challenge. Looking forward to completing the generator component. You can checkout part 10 below. (Note: I am planning to come back and add additional error handling in the future)
 
 [Jack-Analyzer](https://github.com/scassar/nand2tetris/tree/master/projects/10)
 
