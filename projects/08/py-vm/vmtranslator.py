@@ -12,10 +12,10 @@ from vmcodewriter import *
 #       Filename can also be passed in and will compire a singluar vm file
 if __name__ == '__main__': 
     
-    print("Running the VM translater")
+    print("Running the VM translator")
 
     total_files = 0
-    default_file = "final.asm"
+    default_file = os.path.basename(os.getcwd())
     import_directory = ""
 
     #Determine if a directory or file has been passed to the translator.
