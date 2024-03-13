@@ -62,11 +62,11 @@ jump = {
 }
 
 symbols = {
-    "SP":"0",
-    "LCL":"1",
-    "ARG":"2",
-    "THIS":"3",
-    "THAT":"4",
+    "R0":"0",
+    "R1":"1",
+    "R2":"2",
+    "R3":"3",
+    "R4":"4",
     "R5":"5",
     "R6":"6",
     "R7":"7",
@@ -80,6 +80,11 @@ symbols = {
     "R15":"15",
     "SCREEN":"16384",
     "KBD":"24576",
+    "SP":"0",
+    "LCL": "1",
+    "ARG":"2",
+    "THIS":"3",
+    "THAT":"4"
 }
 
 # Function takes the tokenized command and adjusts positions of elements based
