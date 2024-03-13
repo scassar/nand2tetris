@@ -1,16 +1,19 @@
 #VM Translater Parser class 
 #Author: Shaun Cassar
 #Purpose: This will process each line and write to Hack assembly
-
+import os
 
 class CodeWriter: 
 
-    def __init__(self,file_name): 
+    def __init__(self, output_file_name): 
         
-        self.file_name = file_name.split(".")
-        print("Code writer has been created for " + self.file_name[0]+".asm")
+        self.file_name_path = output_file_name.replace(".vm", ".asm")
 
-        self.file = open(self.file_name[0]+".asm","w")
+        self.file_name = os.path.basename(self.file_name_path)
+
+        print("Code writer has been created for " + self.file_name)
+        
+        self.file = open(self.file_name_path,"w")
         self.next_jump = 0
 
     #Here we will process and print the assembly for all of the instructions that are arithmetic
