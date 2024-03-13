@@ -10,39 +10,48 @@ from JackTokenizer import *
 from JackCompilationEngine import *
 
 
-
 if __name__ == '__main__': 
     
     import_directory = ""
 
+    #Determine if a directory or file has been passed to the translator.
     if len(sys.argv) > 1: 
+        if '.jack' in sys.argv[1]:            
+            print("Processing supplied file")
+            temp_path = sys.argv[1]
+            default_file = os.path.basename(temp_path)
+            if '/' in sys.argv[1] or '\\' in sys.argv[1]:
+                import_directory = os.path.dirname(temp_path)+ '/'
+            else: 
+                import_directory = os.path.dirname(temp_path)
 
-        extension = sys.argv[1].split(".")
-        if(extension) == 'jack':
-            print("Processing supplied jack file")
-            default_file = sys.argv[1].split(".")[0]
-            files = [sys.argv[1]]
+            print(default_file)
+            files = [default_file]
+            generate_startup = False
         else: 
             print("Processing supplied directory")
             import_directory = sys.argv[1]
+            if '/' not in import_directory: 
+                import_directory = import_directory + '/'
             files = os.listdir(import_directory)
             default_file = os.path.basename(os.path.dirname(import_directory))
     else: 
         print ("Executing on current directory")
         files = [f for f in os.listdir() if os.path.isfile(f)]  
-
+        
     process_files = []
+
     for file in files: 
        extension = file.split(".")[1]
        if(extension) == 'jack':
-            process_files.append(file)
+            process_files.append(import_directory+file)
 
     for file in process_files: 
         print("Processing file: " + file)
-        file_name = file.split(".")[0]
-
+        file_name = file.split(".jack")
+       
         tokenizer = JackTokenizer(file)
-        engine = JackCompilationEngine(file_name+".xml", tokenizer)
+        engine = JackCompilationEngine(file_name[0]+".xml", tokenizer)
         engine.process()
 
         print("end compiling of " + file)
