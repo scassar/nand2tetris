@@ -195,10 +195,9 @@ class CodeWriter:
                 final_write.append("A=M")
                 final_write.append("M=D")
 
-            elif arg1 == "temp" or arg1 == "pointer":
+            elif arg1 == "temp":
 
                 symbol = symbols.get(arg1)
-                
                 final_write.append("@"+arg2)
                 final_write.append("D=A")
                 final_write.append("@R5")
@@ -208,6 +207,21 @@ class CodeWriter:
                 final_write.append("@SP")
                 final_write.append("A=M")
                 final_write.append("M=D")
+
+            elif arg1 == "pointer":
+                if arg2 == "1": 
+                    final_write.append("@THAT")
+                    final_write.append("D=M")
+                    final_write.append("@SP")
+                    final_write.append("A=M")
+                    final_write.append("M=D")
+                else:
+                    final_write.append("@THIS")
+                    final_write.append("D=M")
+                    final_write.append("@SP")
+                    final_write.append("A=M")
+                    final_write.append("M=D")
+
             
                 #increment the stack pointer to the next location
             final_write.append("@SP")
@@ -254,7 +268,7 @@ class CodeWriter:
                 final_write.append("@SP")
                 final_write.append("M=M-1")       
     
-            elif arg1 == "temp" or arg1 == "pointer":
+            elif arg1 == "temp":
 
                 symbol = symbols.get(arg1)
 
@@ -275,7 +289,26 @@ class CodeWriter:
                 final_write.append("M=D") 
 
                 final_write.append("@SP")
-                final_write.append("M=M-1")         
+                final_write.append("M=M-1")    
+            
+            elif arg1 == "pointer": 
+                print("popping pointer")
+
+                if arg2 == "1": 
+                    final_write.append("@SP")
+                    final_write.append("M=M-1")
+                    final_write.append("A=M")
+                    final_write.append("D=M")
+                    final_write.append("@THAT")
+                    final_write.append("M=D")
+                else:
+                    final_write.append("@SP")
+                    final_write.append("M=M-1")
+                    final_write.append("A=M")
+                    final_write.append("D=M")
+                    final_write.append("@THIS")
+                    final_write.append("M=D")
+
 
         for line in final_write: 
             self.file.write(line+"\n")   

@@ -1,7 +1,7 @@
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/08/ProgramFlow/BasicLoop/BasicLoop.tst
+// File name: projects/8/ProgramFlow/BasicLoop/BasicLoop.tst
 
 // Tests BasicLoop.asm on the CPU emulator.
 // Before executing the code, initializes the stack pointer

@@ -1,9 +1,9 @@
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/08/ProgramFlow/BasicLoop/BasicLoopVME.tst
+// File name: projects/8/ProgramFlow/BasicLoop/BasicLoopVME.tst
 
-// Tests / illustrates BasicLoop.vm on the VM emulator.
+// Tests and illustrates BasicLoop.vm on the VM emulator.
 // Before executing the code, initializes the stack pointer
 // and the base addresses of the local and argument segments,
 // and sets argument[0].

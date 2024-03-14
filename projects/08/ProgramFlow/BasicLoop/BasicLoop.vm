@@ -1,7 +1,7 @@
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/08/ProgramFlow/BasicLoop/BasicLoop.vm
+// File name: projects/8/ProgramFlow/BasicLoop/BasicLoop.vm
 
 // Computes the sum 1 + 2 + ... + n and pushes the result onto
 // the stack. The value n is given in argument[0], which must be 

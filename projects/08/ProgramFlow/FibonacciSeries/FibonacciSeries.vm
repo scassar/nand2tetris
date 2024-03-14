@@ -1,7 +1,7 @@
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/08/ProgramFlow/FibonacciSeries/FibonacciSeries.vm
+// File name: projects/8/ProgramFlow/FibonacciSeries/FibonacciSeries.vm
 
 // Puts the first n elements of the Fibonacci series in the memory,
 // starting at address addr. n and addr are given in argument[0] and
@@ -14,7 +14,7 @@
 	push constant 1   
 	pop that 1              
 	push argument 0         // sets n, the number of remaining elements
-	push constant 2         // to be computed to argument[0] minus 2,
+	push constant 2         // to be computed, to argument[0] minus 2,
 	sub                     // since 2 elements were already computed.
 	pop argument 0          
 

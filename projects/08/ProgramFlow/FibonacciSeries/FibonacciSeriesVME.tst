@@ -1,12 +1,13 @@
 // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
-// File name: projects/08/ProgramFlow/FibonacciSeries/FibonacciSeriesVME.tst
+// File name: projects/8/ProgramFlow/FibonacciSeries/FibonacciSeriesVME.tst
 
-// Tests / illustrates FibonacciSeries.asm on the VM emulator.
+// Tests and illustrates FibonacciSeries.vm on the VM emulator.
 // Before executing the code, initializes the stack pointer
 // and the base addresses of the local and argument segments,
-// and sets argument[0] and argument [1].
+// and sets argument[0] to n and argument [1] to the base address
+// of the generated series.
 
 load FibonacciSeries.vm,
 output-file FibonacciSeries.out,

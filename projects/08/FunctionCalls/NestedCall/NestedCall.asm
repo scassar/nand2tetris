@@ -62,20 +62,12 @@ M=D
 @SP
 M=M+1
 //pop pointer 0
-@R3
-D=A
-@0
-D=D+A
-@R13
-M=D
-@SP
-A=M-1
-D=M
-@R13
-A=M
-M=D
 @SP
 M=M-1
+A=M
+D=M
+@THIS
+M=D
 //push constant 5000
 @5000
 D=A
@@ -85,20 +77,12 @@ M=D
 @SP
 M=M+1
 //pop pointer 1
-@R3
-D=A
-@1
-D=D+A
-@R13
-M=D
-@SP
-A=M-1
-D=M
-@R13
-A=M
-M=D
 @SP
 M=M-1
+A=M
+D=M
+@THAT
+M=D
 //call Sys.main 0
 @Sys.main$ret.2
 D=A
@@ -204,20 +188,12 @@ M=D
 @SP
 M=M+1
 //pop pointer 0
-@R3
-D=A
-@0
-D=D+A
-@R13
-M=D
-@SP
-A=M-1
-D=M
-@R13
-A=M
-M=D
 @SP
 M=M-1
+A=M
+D=M
+@THIS
+M=D
 //push constant 5001
 @5001
 D=A
@@ -227,20 +203,12 @@ M=D
 @SP
 M=M+1
 //pop pointer 1
-@R3
-D=A
-@1
-D=D+A
-@R13
-M=D
-@SP
-A=M-1
-D=M
-@R13
-A=M
-M=D
 @SP
 M=M-1
+A=M
+D=M
+@THAT
+M=D
 //push constant 200
 @200
 D=A
@@ -527,20 +495,12 @@ M=D
 @SP
 M=M+1
 //pop pointer 0
-@R3
-D=A
-@0
-D=D+A
-@R13
-M=D
-@SP
-A=M-1
-D=M
-@R13
-A=M
-M=D
 @SP
 M=M-1
+A=M
+D=M
+@THIS
+M=D
 //push constant 5002
 @5002
 D=A
@@ -550,20 +510,12 @@ M=D
 @SP
 M=M+1
 //pop pointer 1
-@R3
-D=A
-@1
-D=D+A
-@R13
-M=D
-@SP
-A=M-1
-D=M
-@R13
-A=M
-M=D
 @SP
 M=M-1
+A=M
+D=M
+@THAT
+M=D
 //push argument 0
 @ARG
 D=M
