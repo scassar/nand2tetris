@@ -8,7 +8,7 @@ For a while I have had hobby projects involving retro hardware, and seen many re
 
 We are tasked with building the "Hack" computer from scratch, starting with building the actual computer out of basic logic chips. Following this we move on to building our own assembler, VM translator and even a compiler for the high level java-like Jack language. 
 
-Below is a brief description of the projects, and also you can find my solutions to course problems in this repository with links below.
+Below is a brief description of the projects, and also you can find my solutions to course problems in this repository with links below. I have done my implementations in <ins>Python</ins>
 
 ## Project 1 to 3
 
